@@ -18,7 +18,7 @@ function nextPage() {
 
 function prevPage() {
     gPageIdx--
-    const isFirstPage = (PAGE_SIZE + gPageIdx * PAGE_SIZE >= gBooks.length)
+    const isFirstPage = (gPageIdx === 0)
     return isFirstPage
 }
 

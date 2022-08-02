@@ -58,14 +58,12 @@ function onReadBook(bookId) {
 
 function onSetFilterBy(filterBy, ev) {
     ev.preventDefault()
-    // console.log(filterBy)
+    console.log('filterBy:', filterBy)
+    // console.log('ev', ev)
+    // console.log('this', el)
+    // console.dir(el)
     filterBy = setBookFilter(filterBy)
-    // console.log(`gFilterBy:`, gFilterBy)
     renderBooks()
-    //
-    // elInput.title = elInput.value
-    // document.querySelector(resSelector).innerText = elInput.value;
-    //
     const queryStringParams = `?maxPrice=${filterBy.maxPrice}&minRate=${filterBy.minRate}&bookTitle=${filterBy.bookTitle}`
     const newUrl = window.location.protocol + '//' + window.location.host + window.location.pathname + queryStringParams
     window.history.pushState({ path: newUrl }, '', newUrl)

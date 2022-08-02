@@ -12,18 +12,19 @@
 
 <body onload="onInit()">
     <h1>Welcome to my bookshop</h1>
-    <form onkeyup="onSetFilterBy({bookTitle: this.value}, event)">
-        <input type="search" class="filter-input" placeholder="Search for books..">
-        <button type="submit" class="search">Search</button>
-    </form>
+    Search:
+    <!-- <form onkeyup="onSetFilterBy({bookTitle: this.value}, event)"> -->
+        <input onchange="onSetFilterBy({bookTitle: this.value}, event)" type="search" class="filter-input" placeholder="Search for books..">
+        <!-- <button type="submit" class="search">Search</button> -->
+    <!-- </form> -->
     <br><br>
     <label>
         Max Price:
         <input type="range" min="0" max="150" value="50" class="filter-price-range"
-            onchange="this.title=this.value;onSetFilterBy({maxPrice: +this.value})" />
+            onchange="this.title=this.value;onSetFilterBy({maxPrice: +this.value}, event)" />
         Min Rate:
         <input type="range" min="0" max="10" value="0" class="filter-rate-range"
-            onchange="this.title=this.value;onSetFilterBy({minRate: +this.value})" />
+            onchange="this.title=this.value;onSetFilterBy({minRate: +this.value}, event)" />
     </label>
     <br><br><label class="new-book" onclick="onAddBook()">
         Create new book
