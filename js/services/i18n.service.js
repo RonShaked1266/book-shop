@@ -109,7 +109,7 @@ function doTrans() {
     // 
     // var els = document.querySelectorAll('[data-trans]'
     const els = document.querySelectorAll('[data-trans]')
-    console.log(els)
+    // console.log(els)
     // for each el:
     els.forEach(el => {
         const translateKey = el.dataset.trans

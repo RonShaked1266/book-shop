@@ -7,6 +7,7 @@ function onInit() {
 
 function render() {
     renderBooks()
+    // checkModalOpened() 
     doTrans()
 }
 
@@ -16,7 +17,7 @@ function renderBooks() {
         `
         <tr>
             <td>${book.id}</td>
-            <td class="book-title">${book.title}</td>
+            <td class="book-title" onclick="onSortByName()">${book.title}</td>
             <td class="num">${book.price}</td>
             <td>${book.rate}</td>
             <td><button data-trans="read" class="read" onclick="onReadBook('${book.id}')" >Read</button></td>
@@ -27,13 +28,6 @@ function renderBooks() {
     )
     // console.log('strHTMLs:', strHTMLs)
     document.querySelector('.books-table').innerHTML = strHTMLs.join('')
-}
-
-function onUpdateBook(bookId) {
-    var book = getBookById(bookId)
-    const newPrice = +prompt('Price?', book.price)
-    book = updateBook(bookId, newPrice)
-    renderBooks()
 }
 
 function onReadBook(bookId) {
@@ -62,8 +56,11 @@ function onReadBook(bookId) {
 //     elModal.classList.add('open')
 // }
 
-function renderModalByQueryStringParams() {
-
+function onUpdateBook(bookId) {
+    var book = getBookById(bookId)
+    const newPrice = +prompt('Price?', book.price)
+    book = updateBook(bookId, newPrice)
+    renderBooks()
 }
 
 function onAddBook() {
@@ -130,7 +127,7 @@ function onSetSortBy(sortBy) {
 // }
 
 function onRate(rate) {
-    console.log(rate)
+    // console.log(rate)
     // if (rate <= 0 || rate >= 10) return
     const elModal = document.querySelector('.modal')
     // console.log(elModal)
@@ -144,7 +141,7 @@ function onCloseModal() {
     const elModal = document.querySelector('.modal')
     elModal.classList.remove('open')
     const elInput = elModal.querySelector('input')
-    console.log(elInput)
+    // console.log(elInput)
     elInput.value = 0
 }
 
@@ -181,3 +178,12 @@ function onSetLang(lang) {
     formatNum(lang)
     render()
 }
+
+// function checkModalOpened() {
+//     const book = getSelectedBook()  // better to work with the query string params to get bookmark-ability
+//     if (book) onReadBook(bookId)
+// }
+
+// function renderModalByQueryStringParams() {
+
+// }

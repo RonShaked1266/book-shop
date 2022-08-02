@@ -35,6 +35,11 @@ function getBooksForDisplay() {
     return books
 }
 
+function getSelectedBook() {
+    const detailedBook = loadFromStorage('detailedBook')
+    return detailedBook
+  }
+
 function removeBook(bookId) {
     const bookIdx = gBooks.findIndex(book => bookId === book.id)
     gBooks.splice(bookIdx, 1)

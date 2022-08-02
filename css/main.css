@@ -89,11 +89,9 @@ td {
     text-decoration: overline;
     text-transform: capitalize;
 }
-/* .modal h4 span{
-    color:pink;
-} */
-.modal > p {
-    text-align: left;
+
+.modal p {
+    text-align: center;
 }
 
 .close {
