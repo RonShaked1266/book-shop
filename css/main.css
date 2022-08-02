@@ -2,8 +2,7 @@ body {
     background-color: rgb(246, 237, 221);
     color: black;
     overflow-x: hidden;
-    /* padding: 0 40px; */
-    /* direction: rtl; */
+    padding: 20px 40px;
 }
 
 body.rtl {
@@ -12,7 +11,8 @@ body.rtl {
 
 body.rtl .btn-delete {
     float: left;
-} 
+}
+
 
 
 .new-book {

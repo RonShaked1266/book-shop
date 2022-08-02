@@ -5,6 +5,18 @@ var gTrans = {
         en: 'Welcome to my bookshop',
         he: 'ברוכים הבאים לחנות הספרים שלי'
     },
+    'search': {
+        en: 'Search:',
+        he: 'חפש:'
+    },
+    'max-price': {
+        en: 'Max Price:',
+        he: 'מחיר מקסימלי:'
+    },
+    'min-rate': {
+        en: 'Min Rate:',
+        he: 'דירוג מימלי:'
+    },
     'creat-book': {
         en: 'Creat new book',
         he: 'צור ספר חדש'
