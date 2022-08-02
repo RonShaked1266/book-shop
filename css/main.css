@@ -1,0 +1,98 @@
+body {
+    background-color: rgb(246, 237, 221);
+    color: black;
+    overflow-x: hidden;
+    /* padding: 0 40px; */
+}
+
+.new-book {
+    color: blue;
+    cursor: pointer;
+}
+
+.new-book:hover {
+    color: rgb(22, 135, 249);
+    text-decoration: underline;
+}
+
+button {
+    color: white;
+    border: 0;
+    border-radius: .3em;
+    padding: 6px 10px;
+    margin: 2px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: rgb(84, 150, 178);
+}
+
+.read {
+    background-color: rgb(32, 46, 242);
+}
+
+.update {
+    background-color: rgb(217, 166, 12);
+}
+
+.delete {
+    background-color: rgb(218, 60, 60);
+}
+
+table {
+    border: 1px solid black;
+}
+
+th,
+td {
+    background-color: rgb(248, 242, 242);
+    padding: 3px 7px;
+    border: 1px solid black;
+}
+
+.search,
+.prev-page,
+.next-page {
+    color: black;
+    background-color: rgba(149, 146, 146, 0.712);
+}
+
+.modal {
+    background-color: rgb(171, 200, 178);
+    padding: 10px;
+    position: absolute;
+    top: 0px;
+    left: 150%;
+    height: 60vh;
+    min-width: 300px;
+    max-width: 350px;
+    text-align: center;
+}
+.modal.open {
+    left: 50%;
+    transition: left .5s;
+}
+.modal h3{
+    color:rgba(5, 77, 5, 0.825);
+    text-decoration: overline;
+    text-transform: capitalize;
+}
+/* .modal h4 span{
+    color:pink;
+} */
+.modal > p {
+    text-align: left;
+}
+
+.close {
+    color: black;
+    background-color: rgba(149, 146, 146, 0.712);
+    /* background-color: rgba(222, 184, 135, 0.673); */
+    border: 0;
+    border-radius: .3em;
+    padding: 6px 10px;
+    margin: 2px;
+    cursor: pointer;
+}
+
