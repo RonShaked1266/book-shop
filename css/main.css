@@ -3,7 +3,17 @@ body {
     color: black;
     overflow-x: hidden;
     /* padding: 0 40px; */
+    /* direction: rtl; */
 }
+
+body.rtl {
+    direction: rtl;
+}
+
+body.rtl .btn-delete {
+    float: left;
+} 
+
 
 .new-book {
     color: blue;

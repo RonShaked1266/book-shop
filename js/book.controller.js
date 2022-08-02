@@ -1,7 +1,12 @@
 'use strict'
 
 function onInit() {
-    renderFilterByQueryStringParams()
+    doTrans()
+    render()
+}
+
+function render() {
+    renderFilterByQueryStringParams() 
     renderBooks()
 }
 
@@ -14,9 +19,9 @@ function renderBooks() {
             <td>${book.title}</td>
             <td>${book.price}</td>
             <td>${book.rate}</td>
-            <td><button class="read" onclick="onReadBook('${book.id}')" >Read</button></td>
-            <td><button class="update" onclick="onUpdateBook('${book.id}') ">Update</button></td>
-            <td><button class="delete" onclick="onRemoveBook('${book.id}')">Delete</button></td>
+            <td><button data-trans="read" class="read" onclick="onReadBook('${book.id}')" >Read</button></td>
+            <td><button data-trans="update" class="update" onclick="onUpdateBook('${book.id}') ">Update</button></td>
+            <td><button data-trans="delete" class="delete" onclick="onRemoveBook('${book.id}')">Delete</button></td>
         </tr>
         `
     )
@@ -124,7 +129,6 @@ function onNextPage() {
     elPrevPage.removeAttribute('disabled')
     if (isLastPage) {
         elNextPage.setAttribute('disabled', '')
-        // elPrevPage.removeAttribute('disabled')
     }
     renderBooks()
 }
@@ -139,4 +143,13 @@ function onPrevPage() {
         elPrevPage.setAttribute('disabled', '')
     }
     renderBooks()
+}
+
+function onSetLang(lang) {
+    setLang(lang)
+    // if lang is hebrew add RTL class to document.body
+    if (lang === 'he') document.body.classList.add('rtl') 
+    else document.body.classList.remove('rtl')
+    doTrans()
+    render()
 }
