@@ -17,19 +17,20 @@
             <option value="en">English</option>
             <option value="he">עברית</option>
         </select>
-        <br><br><h1 data-trans="title" class="animated tada"></h1><br>
+        <br>
+        <h1 data-trans="title"></h1>
     </header>
-    <p data-trans="search">Search:</p>
+    <!-- <p data-trans="search">Search:</p> -->
     <!-- <form onkeyup="onSetFilterBy({bookTitle: this.value}, event)"> -->
-        <input onchange="onSetFilterBy({bookTitle: this.value}, event)" type="search" class="filter-input"
-        placeholder="Search for books..">
-        <!-- <button type="submit" class="search">Search</button> -->
-        <!-- </form> -->
-        <br><br>
-        <label>
+    <input data-trans="search-placeholder" onchange="onSetFilterBy({bookTitle: this.value}, event)" type="search"
+        class="filter-input" placeholder="Search for book..">
+    <!-- <button type="submit" class="search">Search</button> -->
+    <!-- </form> -->
+    <!-- <br><br> -->
+    <label>
         <p data-trans="max-price">Max Price:</p>
         <input type="range" min="0" max="150" value="120" class="filter-price-range"
-        onchange="this.title=this.value;onSetFilterBy({maxPrice: +this.value}, event)" />
+            onchange="this.title=this.value;onSetFilterBy({maxPrice: +this.value}, event)" />
         <p data-trans="min-rate">Min Rate:</p>
         <input type="range" min="0" max="10" value="0" class="filter-rate-range"
             onchange="this.title=this.value;onSetFilterBy({minRate: +this.value}, event)" />
@@ -38,6 +39,12 @@
         Create new book
     </label>
     <br><br>
+    <p data-trans="sort-by">Sort by:</p>
+    <select class="sort-by" onchange="onSetSortBy(this.value)">
+        <option data-trans="select" value="">Select Sorting</option>
+        <option data-trans="price" value="price">Price</option>
+        <option data-trans="name" value="nane">Name</option>
+    </select>
     <table>
         <thead>
             <tr>
@@ -52,14 +59,7 @@
     </table>
     <button data-trans="prev-page" disabled class="prev-page" onclick="onPrevPage()">Previous Page</button>
     <button data-trans="next-page" class="next-page" onclick="onNextPage()">Next Page</button>
-    <div class="modal">
-        <h3></h3>
-        <h5 data-trans="book-desc">Book Description</h5>
-        <p></p>
-        rate:
-        <input type="number" name="rate" min="0" max="10" onchange="onRate(+this.value)">
-        <br><br><button data-trans="close" class="close" onclick="onCloseModal()">Close</button>
-    </div>
+    <div class="modal"></div>
 
     <!-- JavaScript -->
     <script src="js/services/util.service.js"></script>

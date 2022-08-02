@@ -73,13 +73,16 @@ function setBookFilter(filterBy = {}) {
     return gFilterBy
 }
 
-
-// function setBookSort(sortBy) {
-//     gBooks.sort((book1, book2) => {
-//         if (sortBy === 'price') return (book2[sortBy] - book1[sortBy]) 
-//         if (sortBy === 'rate') return (book2[sortBy] - book1[sortBy]) * -1
-//     })
-// }
+function setBookSort(sortBy) {
+    gBooks.sort((book1, book2) => {
+        if (sortBy === 'name') {
+            const capitalBook1 = book1.title.toUpperCase()
+            const capitalBook2 = book2.title.toUpperCase()
+            return capitalBook1 < capitalBook2 ? -1 : 1
+        } 
+        if (sortBy === 'price') return (book2[sortBy] - book1[sortBy]) 
+    })
+}
 
 function _createBooks() {
     var books = loadFromStorage(STORAGE_KEY)
@@ -102,7 +105,8 @@ function _createBook(name, price) {
         title: name,
         price: price,
         desc: makeLorem(),
-        rate: 0
+        rate: 0,
+        imgUrl: ''
     }
     return book
 }

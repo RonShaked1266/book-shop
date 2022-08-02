@@ -1,5 +1,6 @@
 'use strict'
 
+
 var gTrans = {
     title: {
         en: 'Welcome to my bookshop',
@@ -8,6 +9,10 @@ var gTrans = {
     'search': {
         en: 'Search:',
         he: 'חפש:'
+    },
+    'search-placeholder': {
+        en: 'Search for book..',
+        he: 'חפש ספר..'
     },
     'max-price': {
         en: 'Max Price:',
@@ -20,6 +25,18 @@ var gTrans = {
     'creat-book': {
         en: 'Creat new book',
         he: 'צור ספר חדש'
+    },
+    'sort-by': {
+        en: 'Sort By:',
+        he: 'מיין לפי:'
+    },
+    'select': {
+        en: 'Select Sorting',
+        he: 'בחר'
+    },
+    'name': {
+        en: 'Name',
+        he: 'שם'
     },
     'id': {
         en: 'Id',
@@ -36,6 +53,10 @@ var gTrans = {
     'rate': {
         en: 'Rate',
         he: 'דירוג'
+    },
+    'rate-book': {
+        en: 'Rate:',
+        he: 'דרג את הספר:'
     },
     'actions': {
         en: 'Actions',
@@ -90,44 +111,38 @@ function doTrans() {
     const els = document.querySelectorAll('[data-trans]')
     console.log(els)
     // for each el:
-    els.forEach(el=>{
+    els.forEach(el => {
         const translateKey = el.dataset.trans
         const translateVal = getTrans(translateKey)
         el.innerText = translateVal
         if (el.placeholder !== undefined) el.placeholder = translateVal
         // el.innerText = 'test'
-    })
-    //    get the data-trans and use getTrans to replace the innerText 
-    //    ITP: support placeholder    
+    })   
 }
 
 function setLang(lang) {
     gCurrLang = lang
 }
 
-function formatNumOlder(num) {
-    return num.toLocaleString('es')
-}
-
-function formatNum(num) {
-    return new Intl.NumberFormat(gCurrLang).format(num)
-}
-
-function formatCurrency(num) {
-    return new Intl.NumberFormat('he-IL',{ style: 'currency', currency: 'ILS' }).format(num)
-}
-
-function formatDate(time) {
-
-    var options = {
-        year: 'numeric', month: 'short', day: 'numeric',
-        hour: 'numeric', minute: 'numeric',
-        hour12: true,
+function formatNum(lang) {
+    const shekelOpt = {
+        style: 'currency',
+        currency: 'ils'
     }
-
-    return new Intl.DateTimeFormat(gCurrLang,options).format(time)
+    const usdOpt = {
+        style: 'currency',
+        currency: 'USD'
+    }
+    var els = document.querySelectorAll('.num')
+    // console.log(num)
+    els.forEach(el => {
+    if ( lang === 'he') el.innerText = new Intl.NumberFormat(lang, shekelOpt).format(+el.innerText)
+    if ( lang === 'en') el.innerText = new Intl.NumberFormat(lang, usdOpt).format(+el.innerText)
+})
 }
 
-function kmToMiles(km) {
-    return km / 1.609
-}
+
+// function formatCurrency(num) {
+//     return new Intl.NumberFormat('he-IL',{ style: 'currency', currency: 'ILS' }).format(num)
+// }
+

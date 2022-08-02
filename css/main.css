@@ -9,11 +9,9 @@ body.rtl {
     direction: rtl;
 }
 
-body.rtl .btn-delete {
-    float: left;
-}
-
-
+/* .book-title {
+    direction: ltr;
+} */
 
 .new-book {
     color: blue;
@@ -57,8 +55,9 @@ table {
 th,
 td {
     background-color: rgb(248, 242, 242);
-    padding: 3px 7px;
+    padding: 5px 7px;
     border: 1px solid black;
+    text-align: center;
 }
 
 .search,
@@ -74,6 +73,8 @@ td {
     position: absolute;
     top: 0px;
     left: 150%;
+    /* left: 50%; */
+    /* display: none; */
     height: 60vh;
     min-width: 300px;
     max-width: 350px;

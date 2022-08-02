@@ -1,13 +1,13 @@
 'use strict'
 
 function onInit() {
-    doTrans()
+    renderFilterByQueryStringParams()
     render()
 }
 
 function render() {
-    renderFilterByQueryStringParams() 
     renderBooks()
+    doTrans()
 }
 
 function renderBooks() {
@@ -16,8 +16,8 @@ function renderBooks() {
         `
         <tr>
             <td>${book.id}</td>
-            <td>${book.title}</td>
-            <td>${book.price}</td>
+            <td class="book-title">${book.title}</td>
+            <td class="num">${book.price}</td>
             <td>${book.rate}</td>
             <td><button data-trans="read" class="read" onclick="onReadBook('${book.id}')" >Read</button></td>
             <td><button data-trans="update" class="update" onclick="onUpdateBook('${book.id}') ">Update</button></td>
@@ -36,6 +36,36 @@ function onUpdateBook(bookId) {
     renderBooks()
 }
 
+function onReadBook(bookId) {
+    var book = getBookById(bookId)
+    var strHTML = ` 
+    <h3>${book.title}</h3>
+    <h4 data-trans="book-desc">Book Description</h4>
+    <img class="img-book" src="img/${book.title}.jpg">
+    <br><p data-trans="rate-book">rate:</p>
+    <input type="number" name="rate" min="0" max="10" onchange="onRate(+this.value)">
+    <br><br><button data-trans="close" class="close" onclick="onCloseModal()">Close</button>
+    `
+    const elModal = document.querySelector('.modal')
+    elModal.innerHTML = strHTML
+    elModal.dataset.id = bookId
+    elModal.classList.add('open')
+    render()
+}
+
+// function onReadBook(bookId) {
+//     var book = getBookById(bookId)
+//     const elModal = document.querySelector('.modal')
+//     elModal.querySelector('h3').innerText = book.title
+//     elModal.querySelector('p').innerText = book.desc
+//     elModal.dataset.id = bookId
+//     elModal.classList.add('open')
+// }
+
+function renderModalByQueryStringParams() {
+
+}
+
 function onAddBook() {
     var name = prompt('Name?')
     var price = prompt('Price?')
@@ -52,15 +82,6 @@ function onRemoveBook(bookId) {
     renderBooks()
 }
 
-function onReadBook(bookId) {
-    var book = getBookById(bookId)
-    const elModal = document.querySelector('.modal')
-    elModal.querySelector('h3').innerText = book.title
-    elModal.querySelector('p').innerText = book.desc
-    elModal.dataset.id = bookId
-    elModal.classList.add('open')
-}
-
 function onSetFilterBy(filterBy, ev) {
     ev.preventDefault()
     console.log('filterBy:', filterBy)
@@ -68,7 +89,9 @@ function onSetFilterBy(filterBy, ev) {
     // console.log('this', el)
     // console.dir(el)
     filterBy = setBookFilter(filterBy)
+    const elTxt = document.querySelector('.filter-input')
     renderBooks()
+    elTxt.value = ''
     const queryStringParams = `?maxPrice=${filterBy.maxPrice}&minRate=${filterBy.minRate}&bookTitle=${filterBy.bookTitle}`
     const newUrl = window.location.protocol + '//' + window.location.host + window.location.pathname + queryStringParams
     window.history.pushState({ path: newUrl }, '', newUrl)
@@ -91,11 +114,16 @@ function renderFilterByQueryStringParams() {
     setBookFilter(filterBy)
 }
 
+function onSetSortBy(sortBy) {
+    setBookSort(sortBy)
+    renderBooks()
+}
+
 // }
 
 // function onSearchBook(ev) {
 //     ev.preventDefault()
-//     const elTxt = document.querySelector('[name=search-txt]')
+//     const elTxt = document.querySelector('.filter-input')
 //     searchBook(elTxt.value)
 //     renderBooks()
 //     elTxt.value = ''
@@ -110,7 +138,6 @@ function onRate(rate) {
     // console.log(bookId)
     updateRate(bookId, rate)
     renderBooks()
-  
 }
 
 function onCloseModal() {
@@ -148,8 +175,9 @@ function onPrevPage() {
 function onSetLang(lang) {
     setLang(lang)
     // if lang is hebrew add RTL class to document.body
-    if (lang === 'he') document.body.classList.add('rtl') 
+    if (lang === 'he') document.body.classList.add('rtl')
     else document.body.classList.remove('rtl')
     doTrans()
+    formatNum(lang)
     render()
 }
