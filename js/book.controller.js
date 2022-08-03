@@ -7,7 +7,7 @@ function onInit() {
 
 function render() {
     renderBooks()
-    // checkModalOpened() 
+    // checkModalOpened()
     doTrans()
 }
 
@@ -18,7 +18,7 @@ function renderBooks() {
         <tr>
             <td>${book.id}</td>
             <td class="book-title" onclick="onSortByName()">${book.title}</td>
-            <td class="num">${book.price}</td>
+            <td class="num">${getCurrencyPrice(book.price)}</td>
             <td>${book.rate}</td>
             <td><button data-trans="read" class="read" onclick="onReadBook('${book.id}')" >Read</button></td>
             <td><button data-trans="update" class="update" onclick="onUpdateBook('${book.id}') ">Update</button></td>
@@ -143,6 +143,10 @@ function onCloseModal() {
     const elInput = elModal.querySelector('input')
     // console.log(elInput)
     elInput.value = 0
+    // 
+    setSelectedBook(null)
+    _saveBooksToStorage('selectedBook')
+    // 
 }
 
 function onNextPage() {

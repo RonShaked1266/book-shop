@@ -3,10 +3,12 @@
 const STORAGE_KEY = 'bookDB'
 const gTitles = ['THE END', 'LOST', 'THE GIRL', 'OUR WORLD', 'GOOD DOG', 'HARRY POTTER']
 const PAGE_SIZE = 4
+const SELECTED_BOOK_KEY = 'detailedBook'
 
 var gBooks
 var gFilterBy = { maxPrice: 150, minRate: 0, bookTitle: '' }
 var gPageIdx = 0
+var gSelectedBook = {}
 
 _createBooks()
 
@@ -34,11 +36,39 @@ function getBooksForDisplay() {
     books = books.slice(startIdx, startIdx + PAGE_SIZE)
     return books
 }
+// 
+// function setSelectedBook(book) {
+//     gSelectedBook = book
+// }
 
-function getSelectedBook() {
-    const detailedBook = loadFromStorage('detailedBook')
-    return detailedBook
-  }
+// function getSelectedBook() {
+//     const detailedBook = loadFromStorage(SELECTED_BOOK_KEY)
+//     return detailedBook
+// }
+// 
+function getBookById(bookId) {
+    const book = gBooks.find(book => bookId === book.id)
+    return book
+}
+
+function setBookFilter(filterBy = {}) {
+    if (filterBy.maxPrice !== undefined) gFilterBy.maxPrice = filterBy.maxPrice
+    if (filterBy.minRate !== undefined) gFilterBy.minRate = filterBy.minRate
+    if (filterBy.bookTitle !== undefined) gFilterBy.bookTitle = filterBy.bookTitle
+    // console.log(gFilterBy)
+    return gFilterBy
+}
+
+function setBookSort(sortBy) {
+    gBooks.sort((book1, book2) => {
+        if (sortBy === 'name') {
+            const capitalBook1 = book1.title.toUpperCase()
+            const capitalBook2 = book2.title.toUpperCase()
+            return capitalBook1 < capitalBook2 ? -1 : 1
+        }
+        if (sortBy === 'price') return (book2[sortBy] - book1[sortBy])
+    })
+}
 
 function removeBook(bookId) {
     const bookIdx = gBooks.findIndex(book => bookId === book.id)
@@ -63,30 +93,6 @@ function updateRate(bookId, rate) {
     book.rate = rate
     _saveBooksToStorage
     return book
-}
-
-function getBookById(bookId) {
-    const book = gBooks.find(book => bookId === book.id)
-    return book
-}
-
-function setBookFilter(filterBy = {}) {
-    if (filterBy.maxPrice !== undefined) gFilterBy.maxPrice = filterBy.maxPrice
-    if (filterBy.minRate !== undefined) gFilterBy.minRate = filterBy.minRate
-    if (filterBy.bookTitle !== undefined) gFilterBy.bookTitle = filterBy.bookTitle
-    // console.log(gFilterBy)
-    return gFilterBy
-}
-
-function setBookSort(sortBy) {
-    gBooks.sort((book1, book2) => {
-        if (sortBy === 'name') {
-            const capitalBook1 = book1.title.toUpperCase()
-            const capitalBook2 = book2.title.toUpperCase()
-            return capitalBook1 < capitalBook2 ? -1 : 1
-        } 
-        if (sortBy === 'price') return (book2[sortBy] - book1[sortBy]) 
-    })
 }
 
 function _createBooks() {

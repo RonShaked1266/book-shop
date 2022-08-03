@@ -92,7 +92,12 @@ var gTrans = {
     }
 }
 
-var gCurrLang = 'en'
+var gCurrLang = _loadLngFromLocalStorage() || 'en'
+
+function setLang(lang) {
+    gCurrLang = lang
+    _setLangToLocalStorage(lang)
+}
 
 function getTrans(transKey) {
     const key = gTrans[transKey]
@@ -117,32 +122,24 @@ function doTrans() {
         el.innerText = translateVal
         if (el.placeholder !== undefined) el.placeholder = translateVal
         // el.innerText = 'test'
-    })   
+    })
 }
 
-function setLang(lang) {
-    gCurrLang = lang
-}
-
-function formatNum(lang) {
-    const shekelOpt = {
+function getCurrencyPrice(price) {
+    var currency = (gCurrLang === 'en') ? 'USD' : 'ILS' 
+    const opt = {
         style: 'currency',
-        currency: 'ils'
+        currency
     }
-    const usdOpt = {
-        style: 'currency',
-        currency: 'USD'
-    }
-    var els = document.querySelectorAll('.num')
-    // console.log(num)
-    els.forEach(el => {
-    if ( lang === 'he') el.innerText = new Intl.NumberFormat(lang, shekelOpt).format(+el.innerText)
-    if ( lang === 'en') el.innerText = new Intl.NumberFormat(lang, usdOpt).format(+el.innerText)
-})
+    // console.log(opt)
+    var price = new Intl.NumberFormat(gCurrLang, opt).format(price)
+    return price
 }
 
-
-// function formatCurrency(num) {
-//     return new Intl.NumberFormat('he-IL',{ style: 'currency', currency: 'ILS' }).format(num)
-// }
+function _setLangToLocalStorage(lang) {
+    saveToStorage('currLang', lang)
+}
+function _loadLngFromLocalStorage() {
+    return loadFromStorage('currLang')
+}
 
